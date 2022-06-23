@@ -17,6 +17,21 @@ defmodule BulletinboardWeb.Router do
   scope "/", BulletinboardWeb do
     pipe_through :browser
 
+    live "/comments", CommentLive.Index, :index
+    live "/comments/new", CommentLive.Index, :new
+    live "/comments/:id/edit", CommentLive.Index, :edit
+
+    live "/comments/:id", CommentLive.Show, :show
+    live "/comments/:id/show/edit", CommentLive.Show, :edit
+
+
+    live "/categories", CategoryLive.Index, :index
+    live "/categories/new", CategoryLive.Index, :new
+    live "/categories/:id/edit", CategoryLive.Index, :edit
+
+    live "/categories/:id", CategoryLive.Show, :show
+    live "/categories/:id/show/edit", CategoryLive.Show, :edit
+
     get "/", PageController, :index
   end
 
