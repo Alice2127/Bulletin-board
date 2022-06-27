@@ -8,6 +8,8 @@ defmodule Bulletinboard.Comments do
 
   alias Bulletinboard.Comments.Comment
 
+  alias Bulletinboard.Categories.Category
+
   @doc """
   Returns the list of comments.
 
@@ -18,7 +20,15 @@ defmodule Bulletinboard.Comments do
 
   """
   def list_comments do
-    Repo.all(Comment)
+    comments_base_query
+    |> Repo.all()
+    |> Repo.preload(:category)
+  end
+
+  defp comments_base_query do
+    from(c in Comment,
+    join: ct in assoc(c, :category)
+    )
   end
 
   @doc """
